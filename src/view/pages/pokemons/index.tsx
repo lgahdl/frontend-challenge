@@ -15,6 +15,7 @@ const List = ({ pokemons, settings, dispatch }) => {
   if (settings.page != "pokemon") {
     dispatch({ type: "settings/SET_STATE", payload: { page: "pokemon" } });
   }
+  const pagedPokemons = pokemons.pagedPokemons ? pokemons.pagedPokemons : null;
   const allPokemons = pokemons.allPokemons ? pokemons.allPokemons : null;
   const selectedPokemon = pokemons.selectedPokemon
     ? pokemons.selectedPokemon
@@ -26,6 +27,7 @@ const List = ({ pokemons, settings, dispatch }) => {
         display: "flex",
         flexDirection: "column",
         flex: 1,
+        backgroundColor: "#6F88D9",
       }}
     >
       <TopBar />
@@ -35,6 +37,7 @@ const List = ({ pokemons, settings, dispatch }) => {
           flexDirection: settings.screenWidth > 700 ? "row" : "column-reverse",
           flex: 1,
           width: "100%",
+          backgroundColor: "#6F88D9",
         }}
       >
         <Scrollbar
@@ -44,15 +47,15 @@ const List = ({ pokemons, settings, dispatch }) => {
           contentClassName="content"
           horizontal={false}
           style={{
-            paddingLeft: 20,
+            flex: 1,
             height: 0.7 * window.innerHeight,
           }}
           contentStyle={{
             padding: 20,
           }}
         >
-          {allPokemons && allPokemons.results
-            ? allPokemons.results.map((pokemon, index) => {
+          {pagedPokemons && pagedPokemons.results
+            ? pagedPokemons.results.map((pokemon, index) => {
                 return <ListCard pokemon={pokemon} key={index} index={index} />;
               })
             : null}
@@ -64,7 +67,7 @@ const List = ({ pokemons, settings, dispatch }) => {
           contentClassName="content"
           horizontal={false}
           style={{
-            flex: 1,
+            flex: 3,
             height: 0.7 * window.innerHeight,
           }}
           contentStyle={{

@@ -25,7 +25,7 @@ const BottomBar = ({
             type: "settings/SET_STATE",
             payload: { selectedSubpage: i },
           });
-          dispatch({ type: "pokemons/LOAD_POKEMONS" });
+          dispatch({ type: "pokemons/LOAD_PAGED_POKEMONS" });
         }}
         key={i}
         style={{
@@ -33,7 +33,7 @@ const BottomBar = ({
           padding: 10,
           width: 40,
           backgroundColor:
-            settings.selectedSubpage == i ? "#FFFE52" : "#E1E2E1",
+            settings.selectedSubpage == i ? "#FFCB05" : "#E1E2E1",
         }}
       >
         {i}
@@ -63,7 +63,7 @@ const BottomBar = ({
               type: "settings/SET_STATE",
               payload: { selectedSubpage: 1 },
             });
-            dispatch({ type: "pokemons/LOAD_POKEMONS" });
+            dispatch({ type: "pokemons/LOAD_PAGED_POKEMONS" });
           }}
           style={{
             height: 40,
@@ -83,7 +83,7 @@ const BottomBar = ({
               type: "settings/SET_STATE",
               payload: { selectedSubpage: lastPage },
             });
-            dispatch({ type: "pokemons/LOAD_POKEMONS" });
+            dispatch({ type: "pokemons/LOAD_PAGED_POKEMONS" });
           }}
           style={{
             height: 40,
