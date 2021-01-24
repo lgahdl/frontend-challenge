@@ -7,14 +7,16 @@ interface Action {
 
 interface PokemonState {
   allPokemons: Object;
-  selectedPokemonId: number;
-  selectedPokemon: Object;
+  pagedPokemons: Object;
+  selectedPokemonId: number | null;
+  selectedPokemon: Object | null;
 }
 
 const initialState: PokemonState = {
   allPokemons: {},
-  selectedPokemonId: 1,
-  selectedPokemon: {},
+  pagedPokemons: {},
+  selectedPokemonId: null,
+  selectedPokemon: null,
 };
 
 export default function pokemonsReducer(state = initialState, action: Action) {

@@ -4,7 +4,8 @@ type Action = {
 
 const actions: Action = {
   SET_STATE: "pokemons/SET_STATE",
-  LOAD_POKEMONS: "pokemons/LOAD_POKEMONS",
+  LOAD_PAGED_POKEMONS: "pokemons/LOAD_PAGED_POKEMONS",
+  LOAD_ALL: "pokemons/LOAD_ALL",
   LOAD_SELECTED: "pokemons/LOAD_SELECTED",
 };
 

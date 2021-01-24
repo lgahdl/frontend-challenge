@@ -50,27 +50,10 @@ const TopBar = ({ settings, dispatch }) => {
             height: 40,
             padding: 10,
             width: 100,
-            backgroundColor: settings.page == "pokemon" ? "#FFFE52" : "#E1E2E1",
+            backgroundColor: settings.page == "pokemon" ? "#FFCB05" : "#E1E2E1",
           }}
         >
           Pokémon
-        </Button>
-        <Button
-          onClick={async () => {
-            dispatch({
-              type: "settings/SET_STATE",
-              payload: { page: "generation" },
-            });
-            window.location.href = "#/generation";
-          }}
-          style={{
-            height: 40,
-            padding: 10,
-            width: 100,
-            backgroundColor: settings.page == "generation" ? "green" : "white",
-          }}
-        >
-          Generation
         </Button>
       </div>
     </div>
