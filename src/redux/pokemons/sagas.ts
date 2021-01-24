@@ -5,19 +5,16 @@ import Pokemon from "../../api/Pokemon";
 export function* LOAD_POKEMONS() {
   try {
     const subPage = yield select((state) => {
-      console.log(state);
       return state.settings.selectedSubpage;
     });
-    console.log(subPage);
-    const pokemons = yield call(Pokemon.list.bind(Pokemon), {
+    const allPokemons = yield call(Pokemon.list.bind(Pokemon), {
       limit: 30,
       offset: (subPage - 1) * 30,
     });
-    console.log(pokemons);
     yield put({
       type: "pokemons/SET_STATE",
       payload: {
-        pokemons,
+        allPokemons,
       },
     });
   } catch (error) {
@@ -28,7 +25,7 @@ export function* LOAD_POKEMONS() {
 
 export function* LOAD_SELECTED() {
   try {
-    const id = yield select((state) => state.pokemons.selectedPokemon);
+    const id = yield select((state) => state.pokemons.selectedPokemonId);
     const selectedPokemon = yield call(Pokemon.get.bind(Pokemon), id);
     yield put({
       type: "pokemons/SET_STATE",

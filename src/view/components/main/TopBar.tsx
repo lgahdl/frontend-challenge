@@ -10,7 +10,7 @@ const TopBar = ({ settings, dispatch }) => {
         display: "flex",
         flexDirection: "column",
         width: "100%",
-        height: 260,
+        height: 250,
         backgroundColor: "#6F88D9"
       }}
     >

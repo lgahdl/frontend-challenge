@@ -1,9 +1,15 @@
+import ReactDOM from "react-dom";
 import { connect } from "react-redux";
 import { Button } from "antd";
 
 const MapStateToProps = ({ settings, pokemons }) => ({ settings, pokemons });
 
-const BottomBar = ({ settings, pokemons, dispatch, lastPage }) => {
+const BottomBar = ({
+  settings,
+  pokemons,
+  dispatch,
+  lastPage,
+}) => {
   let firstPageToSelect: number =
     settings.selectedSubpage - 5 > 1
       ? settings.selectedSubpage - 5 < lastPage - 9
@@ -21,6 +27,7 @@ const BottomBar = ({ settings, pokemons, dispatch, lastPage }) => {
           });
           dispatch({ type: "pokemons/LOAD_POKEMONS" });
         }}
+        key={i}
         style={{
           height: 40,
           padding: 10,
@@ -39,7 +46,6 @@ const BottomBar = ({ settings, pokemons, dispatch, lastPage }) => {
         display: "flex",
         flexDirection: "column",
         width: "100%",
-        height: 260,
         backgroundColor: "#6F88D9",
       }}
     >
@@ -62,6 +68,8 @@ const BottomBar = ({ settings, pokemons, dispatch, lastPage }) => {
           style={{
             height: 40,
             padding: 10,
+            paddingLeft: 10,
+            paddingRight: 10,
             width: 40,
             backgroundColor: "#E1E2E1",
           }}
@@ -80,6 +88,8 @@ const BottomBar = ({ settings, pokemons, dispatch, lastPage }) => {
           style={{
             height: 40,
             padding: 10,
+            paddingLeft: 10,
+            paddingRight: 10,
             width: 40,
             backgroundColor: "#E1E2E1",
           }}

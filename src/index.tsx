@@ -11,6 +11,7 @@ import sagas from "./redux/sagas";
 import reducers from "./redux/reducers";
 import Router from "./router";
 import "antd/dist/antd.css";
+import "bootstrap/dist/css/bootstrap.css";
 
 const history: History = createHashHistory();
 const sagaMiddleware = createSagaMiddleware();
@@ -25,9 +26,23 @@ const store = createStore(
 );
 sagaMiddleware.run(sagas);
 
+const windowResize = () => {
+  return;
+};
+
+window.addEventListener("resize", () =>
+  store.dispatch({
+    type: "settings/SET_STATE",
+    payload: {
+      screenWidth: window.innerWidth,
+      screenHeight: window.innerHeight,
+    },
+  })
+);
+
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history}/>
+    <Router history={history} />
   </Provider>,
   document.getElementById("root")
 );

@@ -7,7 +7,7 @@ import {History} from 'history';
 const routes = [
   {
     path: "/pokemons",
-    Component: lazy(() => import("./view/pages/pokemons/list")),
+    Component: lazy(() => import("./view/pages/pokemons")),
     exact: true,
   },
   {
@@ -32,7 +32,6 @@ const Router = (props) => {
                 key={path}
                 exact={exact}
                 render={() => {
-                  console.log(path);
                   return (
                     <Suspense
                       fallback={null}

@@ -15,17 +15,20 @@ interface SettingsState {
     | "machine"
     | "move";
   selectedSubpage: number;
+  screenWidth: number;
+  screenHeight: number;
 }
 
 const initialState: SettingsState = {
   page: "pokemon",
   selectedSubpage: 1,
+  screenWidth: window.innerWidth,
+  screenHeight: window.innerHeight,
 };
 
 export default function pokemonsReducer(state = initialState, action: Action) {
   switch (action.type) {
     case actions.SET_STATE:
-      console.log(action);
       return { ...state, ...action.payload };
     default:
       return state;
