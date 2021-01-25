@@ -6,15 +6,17 @@ interface Action {
 }
 
 interface PokemonState {
-  allPokemons: Object;
-  pagedPokemons: Object;
+  allPokemon: Object;
+  pagedPokemon: Object;
   selectedPokemonId: number | null;
   selectedPokemon: Object | null;
+  researchedPokemon: Object | null;
 }
 
 const initialState: PokemonState = {
-  allPokemons: {},
-  pagedPokemons: {},
+  allPokemon: {},
+  pagedPokemon: {},
+  researchedPokemon: {},
   selectedPokemonId: null,
   selectedPokemon: null,
 };

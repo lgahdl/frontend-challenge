@@ -17,6 +17,8 @@ interface SettingsState {
   selectedSubpage: number;
   screenWidth: number;
   screenHeight: number;
+  researchString: string;
+  search: boolean;
 }
 
 const initialState: SettingsState = {
@@ -24,6 +26,8 @@ const initialState: SettingsState = {
   selectedSubpage: 1,
   screenWidth: window.innerWidth,
   screenHeight: window.innerHeight,
+  researchString: "",
+  search: false,
 };
 
 export default function pokemonsReducer(state = initialState, action: Action) {

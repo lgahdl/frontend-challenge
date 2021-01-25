@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Card } from "antd";
 import { connect } from "react-redux";
 
@@ -12,7 +13,7 @@ const MapStateToProps = ({ pokemons }) => ({ pokemons });
 
 const ListCard = (props: Props) => {
   const { pokemon, index, dispatch, pokemons } = props;
-  let name = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+  let name = pokemon.name;
   name = name
     .split("-")
     .map((subName) => {
@@ -21,12 +22,17 @@ const ListCard = (props: Props) => {
     .join(" ");
   const URLArray = pokemon.url.split("/");
   const selectedPokemonId = URLArray[URLArray.length - 2];
-  if (selectedPokemonId == 1) {
-    console.log(pokemons.selectedPokemonId);
-  }
+  const [hover, setHover] = useState(false);
+
   return (
     <div
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
       onClick={() => {
+        dispatch({
+          type: "pokemons/SET_STATE",
+          payload: { selectedPokemon: null },
+        });
         dispatch({
           type: "pokemons/SET_STATE",
           payload: { selectedPokemonId },
@@ -35,13 +41,15 @@ const ListCard = (props: Props) => {
       }}
       title={"Pokémon No. " + selectedPokemonId}
       style={{
+        cursor: "pointer",
         width: "100%",
         padding: 20,
         backgroundColor:
           pokemons.selectedPokemonId === selectedPokemonId
             ? "#FFCB05"
+            : hover
+            ? "#E1E2E1"
             : "white",
-
         borderRadius: 3,
         marginBottom: 15,
         display: "flex",

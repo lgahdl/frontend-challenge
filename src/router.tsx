@@ -2,7 +2,6 @@ import React, { lazy, Suspense } from "react";
 import { Route, Redirect, Switch} from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { connect } from "react-redux";
-import {History} from 'history';
 
 const routes = [
   {

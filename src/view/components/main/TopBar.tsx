@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { connect } from "react-redux";
 import { Button } from "antd";
 
@@ -11,7 +12,7 @@ const TopBar = ({ settings, dispatch }) => {
         flexDirection: "column",
         width: "100%",
         height: 250,
-        backgroundColor: "#6F88D9"
+        backgroundColor: "#6F88D9",
       }}
     >
       <div
@@ -21,7 +22,8 @@ const TopBar = ({ settings, dispatch }) => {
           flex: 1,
           width: "100%",
           alignItems: "center",
-          paddingTop: 20,
+          paddingTop: 10,
+          paddingBottom: 10,
         }}
       >
         <img
@@ -34,27 +36,32 @@ const TopBar = ({ settings, dispatch }) => {
       <div
         style={{
           width: "100%",
-          height: 60,
+          height: 50,
+          backgroundColor: "#003D80",
           display: "flex",
-          justifyContent: "center",
         }}
       >
-        <Button
+        <div
           onClick={async () => {
             dispatch({
               type: "settings/SET_STATE",
-              payload: { page: "pokemon" },
+              payload: { page: "pokemon", search: false },
             });
           }}
           style={{
-            height: 40,
-            padding: 10,
+            cursor: "pointer",
+            marginLeft: 20,
+            display: "flex",
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center",
             width: 100,
-            backgroundColor: settings.page == "pokemon" ? "#FFCB05" : "#E1E2E1",
+            backgroundColor: settings.page == "pokemon" ? "#3367B0" : "#003D80",
+            color: "white",
           }}
         >
-          Pokémon
-        </Button>
+          <b>Pokémons</b>
+        </div>
       </div>
     </div>
   );

@@ -4,12 +4,7 @@ import { Button } from "antd";
 
 const MapStateToProps = ({ settings, pokemons }) => ({ settings, pokemons });
 
-const BottomBar = ({
-  settings,
-  pokemons,
-  dispatch,
-  lastPage,
-}) => {
+const BottomBar = ({ settings, pokemons, dispatch, lastPage }) => {
   let firstPageToSelect: number =
     settings.selectedSubpage - 5 > 1
       ? settings.selectedSubpage - 5 < lastPage - 9
@@ -23,7 +18,7 @@ const BottomBar = ({
         onClick={async () => {
           dispatch({
             type: "settings/SET_STATE",
-            payload: { selectedSubpage: i },
+            payload: { selectedSubpage: i, search: false },
           });
           dispatch({ type: "pokemons/LOAD_PAGED_POKEMONS" });
         }}
@@ -44,59 +39,65 @@ const BottomBar = ({
     <div
       style={{
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "row",
         width: "100%",
-        backgroundColor: "#6F88D9",
+        backgroundColor: "#003D80",
       }}
     >
       <div
         style={{
-          width: "100%",
+          flex: 1,
+          justifyContent: "center",
+          paddingTop: 10,
           height: 60,
           display: "flex",
-          justifyContent: "center",
         }}
       >
-        <Button
-          onClick={async () => {
-            dispatch({
-              type: "settings/SET_STATE",
-              payload: { selectedSubpage: 1 },
-            });
-            dispatch({ type: "pokemons/LOAD_PAGED_POKEMONS" });
-          }}
-          style={{
-            height: 40,
-            padding: 10,
-            paddingLeft: 10,
-            paddingRight: 10,
-            width: 40,
-            backgroundColor: "#E1E2E1",
-          }}
-        >
-          {`<<`}
-        </Button>
-        {pageButtons}
-        <Button
-          onClick={async () => {
-            dispatch({
-              type: "settings/SET_STATE",
-              payload: { selectedSubpage: lastPage },
-            });
-            dispatch({ type: "pokemons/LOAD_PAGED_POKEMONS" });
-          }}
-          style={{
-            height: 40,
-            padding: 10,
-            paddingLeft: 10,
-            paddingRight: 10,
-            width: 40,
-            backgroundColor: "#E1E2E1",
-          }}
-        >
-          {`>>`}
-        </Button>
+        {settings.search ? null : (
+          <div>
+            <Button
+              onClick={async () => {
+                dispatch({
+                  type: "settings/SET_STATE",
+                  payload: { selectedSubpage: 1, search: false },
+                });
+                dispatch({ type: "pokemons/LOAD_PAGED_POKEMONS" });
+              }}
+              style={{
+                height: 40,
+                padding: 10,
+                paddingLeft: 10,
+                paddingRight: 10,
+                width: 40,
+                backgroundColor: "#E1E2E1",
+              }}
+            >
+              {`<<`}
+            </Button>
+            {pageButtons}
+            <Button
+              onClick={async () => {
+                dispatch({
+                  type: "settings/SET_STATE",
+                  payload: { selectedSubpage: lastPage, search: false },
+                });
+                dispatch({ type: "pokemons/LOAD_PAGED_POKEMONS" });
+              }}
+              style={{
+                height: 40,
+                padding: 10,
+                paddingLeft: 10,
+                paddingRight: 10,
+                width: 40,
+                backgroundColor: "#E1E2E1",
+              }}
+            >
+              {`>>`}
+            </Button>
+          </div>
+        )}
       </div>
+      {settings.screenWidth < 800 ? null : <div style={{ flex: 3 }} />}
     </div>
   );
 };
