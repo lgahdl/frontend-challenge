@@ -1,7 +1,21 @@
 # Pokédex
 
-This is a website to gather and display informations provided by PokéAPI ()
+This is a website to gather and display informations provided by PokéAPI (https://pokeapi.co/)
 
 ## Pokémons
 
+### List
 
+In the Pokémons Screen, a list of pokémons is provided in the left side(web version) or in the center(mobile), separated by pages of 30 pokémons, you can click in any pokémon to open the details in the right side of the screen(web) or in the top(mobile);
+
+Also you can search any pokémon you want by it's name, in the top of the list;
+
+The details provided are Name, Number, Types and Moves of each pokémon;
+
+## Technical Informations
+
+The whole app was written in reactJS with typescript, using redux to manage the state of all components;
+
+## Github
+
+Open the [github page](https://github.com/lgahdl/frontend-challenge) to see the whole project
