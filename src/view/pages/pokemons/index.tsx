@@ -5,7 +5,7 @@ import DetailsCard from "../../components/pokemons/DetailsCard";
 import BottomBar from "../../components/main/BottomBar";
 import TopBar from "../../components/main/TopBar";
 import { Transition } from "react-transition-group";
-import Scrollbar from "react-scrollbar";
+import Scrollbar from "react-perfect-scrollbar";
 import { Input } from "antd";
 import style from "./style.module.scss";
 
@@ -42,94 +42,167 @@ const List = ({ pokemons, settings, dispatch }) => {
     : null;
 
   return (
-    <div className={style.body}>
+    <div
+      className={style.body}
+      style={{ height: settings.screenHeight > 1100 ? "100vh" : "100%" }}
+    >
       <TopBar />
-      <div
-        className={style.main_page}
-        style={{
-          flexDirection: settings.screenWidth > 1100 ? "row" : "column-reverse",
-        }}
-      >
-        <Scrollbar
-          speed={1}
-          smoothScrolling
-          className="area1"
-          contentClassName="content"
-          horizontal={false}
+
+      {settings.screenWidth > 1100 ? (
+        <div
+          className={style.main_page}
           style={{
-            flex: 3,
-            height: 0.7 * window.innerHeight,
-          }}
-          contentStyle={{
-            padding: 20,
+            display: "flex",
+            flexDirection: "row",
+            maxHeight: settings.screenHeight - 310,
           }}
         >
-          <div style={{ height: 60, paddingBottom: 20 }}>
-            <Input
-              placeholder="Search your Pokémon"
-              onChange={(event) => {
-                console.log(event);
-                const researchString = event.currentTarget.value;
-                dispatch({
-                  type: "settings/SET_STATE",
-                  payload: {
-                    researchString,
-                    search: researchString != "" ? true : false,
-                  },
-                });
-                dispatch({ type: "pokemons/SEARCH" });
+          <div style={{ flex: 3 }}>
+            <Scrollbar
+              style={{
+                position: "relative",
+                padding: 20,
+                overflow: "hidden",
+                height: settings.screenHeight - 310,
               }}
-            />
+            >
+              <div style={{ height: "100%" }}>
+                <div style={{ height: 60, paddingBottom: 20 }}>
+                  <Input
+                    placeholder="Search your Pokémon"
+                    onChange={(event) => {
+                      console.log(event);
+                      const researchString = event.currentTarget.value;
+                      dispatch({
+                        type: "settings/SET_STATE",
+                        payload: {
+                          researchString,
+                          search: researchString != "" ? true : false,
+                        },
+                      });
+                      dispatch({ type: "pokemons/SEARCH" });
+                    }}
+                  />
+                </div>
+                {settings.search ? (
+                  <div>
+                    {researchedPokemon && researchedPokemon.results
+                      ? researchedPokemon.results.map((pokemon, index) => {
+                          return (
+                            <ListCard
+                              pokemon={pokemon}
+                              key={index}
+                              index={index}
+                            />
+                          );
+                        })
+                      : null}
+                  </div>
+                ) : (
+                  <div>
+                    {pagedPokemon && pagedPokemon.results
+                      ? pagedPokemon.results.map((pokemon, index) => {
+                          return (
+                            <ListCard
+                              pokemon={pokemon}
+                              key={index}
+                              index={index}
+                            />
+                          );
+                        })
+                      : null}
+                  </div>
+                )}
+              </div>
+            </Scrollbar>
           </div>
-          {settings.search ? (
-            <div>
-              {researchedPokemon && researchedPokemon.results
-                ? researchedPokemon.results.map((pokemon, index) => {
-                    return (
-                      <ListCard pokemon={pokemon} key={index} index={index} />
-                    );
-                  })
-                : null}
+          <div style={{ flex: 7 }}>
+            <Scrollbar
+              style={{
+                position: "relative",
+                flex: 7,
+                padding: 20,
+                overflow: "hidden",
+                height: settings.screenHeight - 310,
+              }}
+            >
+              <div style={{ height: "100%" }}>
+                {" "}
+                <Transition
+                  in={selectedPokemon != null}
+                  unmountOnExit={true}
+                  duration={300}
+                >
+                  {(state) => (
+                    <div
+                      style={{ ...defaultStyle, ...transitionStyles[state] }}
+                    >
+                      {selectedPokemon ? <DetailsCard /> : null}
+                    </div>
+                  )}
+                </Transition>
+              </div>
+            </Scrollbar>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <div style={{ padding: 20 }}>
+            <Transition
+              in={selectedPokemon != null}
+              unmountOnExit={true}
+              duration={300}
+            >
+              {(state) => (
+                <div style={{ ...defaultStyle, ...transitionStyles[state] }}>
+                  {selectedPokemon ? <DetailsCard /> : null}
+                </div>
+              )}
+            </Transition>
+          </div>
+          <div style={{ height: "100%" }}>
+            <div style={{ height: 60, paddingBottom: 20 }}>
+              <Input
+                placeholder="Search your Pokémon"
+                onChange={(event) => {
+                  console.log(event);
+                  const researchString = event.currentTarget.value;
+                  dispatch({
+                    type: "settings/SET_STATE",
+                    payload: {
+                      researchString,
+                      search: researchString != "" ? true : false,
+                    },
+                  });
+                  dispatch({ type: "pokemons/SEARCH" });
+                }}
+              />
             </div>
-          ) : (
-            <div>
-              {pagedPokemon && pagedPokemon.results
-                ? pagedPokemon.results.map((pokemon, index) => {
-                    return (
-                      <ListCard pokemon={pokemon} key={index} index={index} />
-                    );
-                  })
-                : null}
-            </div>
-          )}
-        </Scrollbar>
-        <Scrollbar
-          speed={1}
-          smoothScrolling
-          className="area2"
-          contentClassName="content"
-          horizontal={false}
-          style={{
-            flex: 7,
-            height: 0.7 * window.innerHeight,
-          }}
-          contentStyle={{
-            padding: 20,
-          }}
-        >
-          <Transition
-            in={selectedPokemon != null}
-            unmountOnExit={true}
-            duration={300}
-          >
-            {(state) => (
-              <div style={{ ...defaultStyle, ...transitionStyles[state] }}>
-                {selectedPokemon ? <DetailsCard /> : null}
+            {settings.search ? (
+              <div>
+                {researchedPokemon && researchedPokemon.results
+                  ? researchedPokemon.results.map((pokemon, index) => {
+                      return (
+                        <ListCard pokemon={pokemon} key={index} index={index} />
+                      );
+                    })
+                  : null}
+              </div>
+            ) : (
+              <div>
+                {pagedPokemon && pagedPokemon.results
+                  ? pagedPokemon.results.map((pokemon, index) => {
+                      return (
+                        <ListCard pokemon={pokemon} key={index} index={index} />
+                      );
+                    })
+                  : null}
               </div>
             )}
-          </Transition>
-        </Scrollbar>
-      </div>
+          </div>
+        </div>
+      )}
+
       <BottomBar lastPage={Math.ceil(allPokemon.count / 30)} />
     </div>
   );
