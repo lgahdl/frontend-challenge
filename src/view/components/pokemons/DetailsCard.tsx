@@ -44,7 +44,7 @@ const DetailsCard = ({ settings, pokemons }) => {
           <img
             src={selectedPokemon.sprites.front_default}
             className="img-fluid"
-            style={{ backgroundColor: "#E1E2E1", width: 300, minWidth: 150 }}
+            style={{ width: 300, minWidth: 150 }}
           />
         </div>
         <div style={{ flex: 3, paddingTop: 20, paddingLeft: 20 }}>
