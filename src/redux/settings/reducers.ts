@@ -6,14 +6,7 @@ interface Action {
 }
 
 interface SettingsState {
-  page:
-    | "pokemon"
-    | "berry"
-    | "generation"
-    | "items"
-    | "location"
-    | "machine"
-    | "move";
+  page: "pokemon" | "error";
   selectedSubpage: number;
   screenWidth: number;
   screenHeight: number;

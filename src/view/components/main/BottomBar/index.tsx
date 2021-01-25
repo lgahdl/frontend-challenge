@@ -1,18 +1,27 @@
+import React from "react";
 import ReactDOM from "react-dom";
 import { connect } from "react-redux";
 import { Button } from "antd";
+import style from "./style.module.scss";
 
 const MapStateToProps = ({ settings, pokemons }) => ({ settings, pokemons });
 
 const BottomBar = ({ settings, pokemons, dispatch, lastPage }) => {
+  let interval: number =
+    settings.screenWidth > 2000 || settings.screenWidth < 800 ? 10 : 6;
+
   let firstPageToSelect: number =
-    settings.selectedSubpage - 5 > 1
-      ? settings.selectedSubpage - 5 < lastPage - 9
-        ? settings.selectedSubpage - 5
-        : lastPage - 9
+    settings.selectedSubpage - interval / 2 > 1
+      ? settings.selectedSubpage - interval / 2 < lastPage - (interval - 1)
+        ? settings.selectedSubpage - interval / 2
+        : lastPage - (interval - 1)
       : 1;
-  let pageButtons: any = [];
-  for (let i = firstPageToSelect; i < firstPageToSelect + 10; i++) {
+  let pageButtons: Array<any> = [];
+  for (
+    let i: number = firstPageToSelect;
+    i < firstPageToSelect + interval;
+    i++
+  ) {
     pageButtons.push(
       <Button
         onClick={async () => {
@@ -23,12 +32,9 @@ const BottomBar = ({ settings, pokemons, dispatch, lastPage }) => {
           dispatch({ type: "pokemons/LOAD_PAGED_POKEMONS" });
         }}
         key={i}
+        className={style.btn}
         style={{
-          height: 40,
-          padding: 10,
-          width: 40,
-          backgroundColor:
-            settings.selectedSubpage == i ? "#FFCB05" : "#E1E2E1",
+          backgroundColor: settings.selectedSubpage == i ? "#ffcb05" : "white",
         }}
       >
         {i}
@@ -36,23 +42,8 @@ const BottomBar = ({ settings, pokemons, dispatch, lastPage }) => {
     );
   }
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        width: "100%",
-        backgroundColor: "#003D80",
-      }}
-    >
-      <div
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          paddingTop: 10,
-          height: 60,
-          display: "flex",
-        }}
-      >
+    <div className={style.body}>
+      <div className={style.page_selector_body}>
         {settings.search ? null : (
           <div>
             <Button
@@ -63,13 +54,9 @@ const BottomBar = ({ settings, pokemons, dispatch, lastPage }) => {
                 });
                 dispatch({ type: "pokemons/LOAD_PAGED_POKEMONS" });
               }}
+              className={style.btn}
               style={{
-                height: 40,
-                padding: 10,
-                paddingLeft: 10,
-                paddingRight: 10,
-                width: 40,
-                backgroundColor: "#E1E2E1",
+                backgroundColor: "white",
               }}
             >
               {`<<`}
@@ -83,13 +70,9 @@ const BottomBar = ({ settings, pokemons, dispatch, lastPage }) => {
                 });
                 dispatch({ type: "pokemons/LOAD_PAGED_POKEMONS" });
               }}
+              className={style.btn}
               style={{
-                height: 40,
-                padding: 10,
-                paddingLeft: 10,
-                paddingRight: 10,
-                width: 40,
-                backgroundColor: "#E1E2E1",
+                backgroundColor: "white",
               }}
             >
               {`>>`}
@@ -97,7 +80,7 @@ const BottomBar = ({ settings, pokemons, dispatch, lastPage }) => {
           </div>
         )}
       </div>
-      {settings.screenWidth < 800 ? null : <div style={{ flex: 3 }} />}
+      {settings.screenWidth < 1400 ? null : <div style={{ flex: 7 }} />}
     </div>
   );
 };

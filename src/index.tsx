@@ -26,10 +26,6 @@ const store = createStore(
 );
 sagaMiddleware.run(sagas);
 
-const windowResize = () => {
-  return;
-};
-
 window.addEventListener("resize", () =>
   store.dispatch({
     type: "settings/SET_STATE",

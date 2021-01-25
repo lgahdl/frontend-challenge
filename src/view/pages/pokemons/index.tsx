@@ -2,11 +2,12 @@ import React, { useRef } from "react";
 import { connect } from "react-redux";
 import ListCard from "../../components/pokemons/ListCard";
 import DetailsCard from "../../components/pokemons/DetailsCard";
-import TopBar from "../../components/main/TopBar";
 import BottomBar from "../../components/main/BottomBar";
+import TopBar from "../../components/main/TopBar";
 import { Transition } from "react-transition-group";
 import Scrollbar from "react-scrollbar";
 import { Input } from "antd";
+import style from "./style.module.scss";
 
 const { Search } = Input;
 
@@ -41,22 +42,12 @@ const List = ({ pokemons, settings, dispatch }) => {
     : null;
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        flex: 1,
-        backgroundColor: "#6F88D9",
-      }}
-    >
+    <div className={style.body}>
       <TopBar />
       <div
+        className={style.main_page}
         style={{
-          display: "flex",
-          flexDirection: settings.screenWidth > 700 ? "row" : "column-reverse",
-          flex: 1,
-          width: "100%",
-          backgroundColor: "#6F88D9",
+          flexDirection: settings.screenWidth > 1100 ? "row" : "column-reverse",
         }}
       >
         <Scrollbar
@@ -66,7 +57,7 @@ const List = ({ pokemons, settings, dispatch }) => {
           contentClassName="content"
           horizontal={false}
           style={{
-            flex: 1,
+            flex: 3,
             height: 0.7 * window.innerHeight,
           }}
           contentStyle={{
@@ -119,7 +110,7 @@ const List = ({ pokemons, settings, dispatch }) => {
           contentClassName="content"
           horizontal={false}
           style={{
-            flex: 3,
+            flex: 7,
             height: 0.7 * window.innerHeight,
           }}
           contentStyle={{

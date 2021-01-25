@@ -2,7 +2,7 @@ import actions from "./actions";
 
 interface Action {
   type: string;
-  payload: any;
+  payload?: Object | null;
 }
 
 interface PokemonState {
@@ -14,7 +14,7 @@ interface PokemonState {
 }
 
 const initialState: PokemonState = {
-  allPokemon: {},
+  allPokemon: {}, //OBS: EXCLUSIVE FOR SEARCH FEATURE, PokeAPI DOES NOT SUPPORT SEARCH BY STRING
   pagedPokemon: {},
   researchedPokemon: {},
   selectedPokemonId: null,
