@@ -81,7 +81,10 @@ const DetailsCard = ({ settings, pokemons }) => {
               className="list-inline"
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(4,1fr)",
+                gridTemplateColumns:
+                  settings.screenWidth > 500
+                    ? "repeat(4,1fr)"
+                    : "repeat(2,1fr)",
               }}
             >
               {selectedPokemon.moves.map((item, index) => {

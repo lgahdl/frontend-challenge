@@ -11,7 +11,7 @@ const BottomBar = ({ settings, pokemons, dispatch, lastPage }) => {
     (settings.screenWidth > 2000) ||
     (settings.screenWidth < 1400 && settings.screenWidth > 700)
       ? 10
-      : 6;
+      : 4;
 
   let firstPageToSelect: number =
     settings.selectedSubpage - interval / 2 > 1
