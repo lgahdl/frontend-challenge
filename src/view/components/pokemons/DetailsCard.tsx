@@ -18,9 +18,7 @@ const DetailsCard = ({ settings, pokemons }) => {
   let selectedPokemon = pokemons.selectedPokemon
     ? pokemons.selectedPokemon
     : emptyPokemon;
-  let name =
-    selectedPokemon.name.charAt(0).toUpperCase() +
-    selectedPokemon.name.slice(1);
+  let name = selectedPokemon.name;
   name = name
     .split("-")
     .map((subName) => {
@@ -40,60 +38,48 @@ const DetailsCard = ({ settings, pokemons }) => {
           flexDirection: settings.screenWidth > 1100 ? "row" : "column",
         }}
       >
-        <div style={{ flex: 1, paddingTop: 20, paddingLeft: 20 }}>
+        <div style={{ flex: 1 }}>
           <img
             src={selectedPokemon.sprites.front_default}
             className="img-fluid"
             style={{ backgroundColor: "#E1E2E1", width: 300, minWidth: 150 }}
           />
         </div>
-        <div style={{ flex: 3, paddingTop: 20, paddingLeft: 20 }}>
-          <ul className="list-group">
-            <div style={{ paddingBottom: 10 }}>
-              <b>Name</b>
-            </div>
-            <li className="list-group-item">
-              {name} <br />
+        <div style={{ flex: 3 }}>
+          <ul>
+            <li>
+              <b>Name:</b> {name} <br />
             </li>
-            <div style={{ paddingBottom: 10, paddingTop: 10 }}>
-              <b>Number </b>
-            </div>
-            <li className="list-group-item">
-              {pokemonNumber} <br />
+            <li>
+              <b>Number: </b> {pokemonNumber} <br />
             </li>
-            <div style={{ paddingBottom: 10, paddingTop: 10 }}>
-              <b>Types</b>
-            </div>
-            {selectedPokemon.types.map((item) => {
-              return <li className="list-group-item">{item.type.name}</li>;
-            })}
+            <li>
+              <b>Types:</b>
+              <ul>
+                {selectedPokemon.types.map((item) => {
+                  return <li>{item.type.name}</li>;
+                })}
+              </ul>
+            </li>
+            <li>
+              <b>Moves({selectedPokemon.moves.length}):</b>
+              <ul>
+                {selectedPokemon.moves.map((item, index) => {
+                  return (
+                    <li
+                      style={{
+                        width: settings.screenWidth > 1300 ? "25%" : "100%",
+                        display: "block",
+                        float: "left",
+                      }}
+                    >
+                      {index + 1}: {item.move.name}
+                    </li>
+                  );
+                })}
+              </ul>
+            </li>
           </ul>
-          <div style={{ paddingBottom: 10, paddingTop: 10 }}>
-            <b>Moves({selectedPokemon.moves.length})</b>
-          </div>
-          <div
-            style={{
-              borderTopStyle: "solid",
-              borderWidth: 1,
-              borderColor: "rgba(0,0,0,0.125)",
-            }}
-          >
-            <ul
-              className="list-inline"
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(4,1fr)",
-              }}
-            >
-              {selectedPokemon.moves.map((item, index) => {
-                return (
-                  <li key={index} className="list-group-item">
-                    <b>{index + 1}</b>: {item.move.name}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
         </div>
       </div>
     </Card>

@@ -7,6 +7,7 @@ const actions: Action = {
   LOAD_PAGED_POKEMONS: "pokemons/LOAD_PAGED_POKEMONS",
   LOAD_ALL: "pokemons/LOAD_ALL",
   LOAD_SELECTED: "pokemons/LOAD_SELECTED",
+  SEARCH: "pokemons/SEARCH",
 };
 
 export default actions;
