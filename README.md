@@ -16,6 +16,8 @@ The details provided are Name, Number, Types and Moves of each pokémon;
 
 The whole app was written in reactJS with typescript, using redux to manage the state of all components;
 
+To run it locally, you must download the zip, run "npm install" or "yarn install" in the root folder, and then yarn start, the project will run on localhost:3000
+
 ## Github
 
 Open the [github page](https://github.com/lgahdl/frontend-challenge) to see the whole project
