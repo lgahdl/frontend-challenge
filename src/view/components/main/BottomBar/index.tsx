@@ -8,7 +8,10 @@ const MapStateToProps = ({ settings, pokemons }) => ({ settings, pokemons });
 
 const BottomBar = ({ settings, pokemons, dispatch, lastPage }) => {
   let interval: number =
-    settings.screenWidth > 2000 || settings.screenWidth < 800 ? 10 : 6;
+    (settings.screenWidth > 2000) ||
+    (settings.screenWidth < 1400 && settings.screenWidth > 700)
+      ? 10
+      : 6;
 
   let firstPageToSelect: number =
     settings.selectedSubpage - interval / 2 > 1
